@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ज्ञान पब्लिक स्कूल - Documents</title>
+<style>
+body{font-family:Arial,sans-serif;background:#eef2f8;margin:0;color:#172b4d}
+header{background:#10284d;color:white;text-align:center;padding:20px}
+.logo{width:75px;height:75px;object-fit:contain;background:white;border-radius:50%}
+main{max-width:850px;margin:20px auto;padding:12px}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+button{padding:12px;border:0;border-radius:8px;background:#173e70;color:white;font-weight:bold;cursor:pointer;margin:4px}
+section{background:white;padding:18px;border-radius:12px;margin-top:14px}
+input,select,textarea{width:100%;padding:11px;margin:6px 0 13px;box-sizing:border-box;border:1px solid #bbc9da;border-radius:7px;font-size:16px}
+label{font-weight:bold}
+h2{color:#173e70}
+.paper{border:1px solid #777;padding:18px;margin-top:15px;background:white;color:#111}
+.paperhead{text-align:center;border:2px solid #173e70;padding:10px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+td,th{border:1px solid #333;padding:8px;text-align:center}
+.hidden{display:none}
+@media print{header,nav,.noprint,section>h2,.formarea{display:none!important}body{background:white}.paper{border:0;margin:0}}
+</style>
+</head>
+<body>
+<header>
+<img id="logoShow" class="logo" alt="School Logo" style="display:none">
+<h1 id="schoolTitle">ज्ञान पब्लिक स्कूल</h1>
+<h3>घोंघिया (जयगुरुदेव आश्रम)</h3>
+<p>LEARN • GROW • SUCCEED</p>
+</header>
+<main>
+<nav class="noprint">
+<button onclick="show('marks')">मार्कशीट</button>
+<button onclick="show('exam')">प्रश्नपत्र</button>
+<button onclick="show('id')">ID कार्ड</button>
+<button onclick="show('admission')">एडमिशन फॉर्म</button>
+<button onclick="show('settings')">स्कूल सेटिंग</button>
+</nav>
+<section id="marks">
+<h2>मार्कशीट जनरेटर</h2>
+<div class="formarea">
+<label>कक्षा</label><select id="mc"></select>
+<label>विद्यार्थी का नाम</label><input id="mn" placeholder="नाम">
+<label>पिता का नाम</label><input id="mp" placeholder="पिता का नाम">
+<label>रोल नंबर</label><input id="mr" placeholder="रोल नंबर">
+<label>परीक्षा</label><input id="me" value="वार्षिक परीक्षा">
+<label>सत्र</label><input id="ms" value="2026-2027">
+<label>विषय और प्राप्तांक (हर लाइन पर एक, जैसे हिंदी,80)</label>
+<textarea id="subjects">हिंदी,80
+अंग्रेजी,75
+गणित,90
+विज्ञान,85
+सामान्य ज्ञान,80</textarea>
+<label>प्रत्येक विषय का पूर्णांक</label><input id="maximum" type="number" value="100">
+<button onclick="makeMarks()">मार्कशीट बनाएं</button>
+</div><div id="markOut"></div>
+</section>
+<section id="exam" class="hidden">
+<h2>प्रश्नपत्र जनरेटर</h2>
+<div class="formarea">
+<label>कक्षा</label><select id="qc"></select>
+<label>विषय</label><input id="qs" placeholder="विषय">
+<label>परीक्षा</label><input id="qe" value="वार्षिक परीक्षा">
+<label>समय</label><input id="qt" value="2 घंटे">
+<label>पूर्णांक</label><input id="qmax" value="50">
+<label>प्रश्न (हर प्रश्न नई लाइन में)</label><textarea id="questions" rows="8"></textarea>
+<button onclick="makePaper()">प्रश्नपत्र बनाएं</button>
+</div><div id="paperOut"></div>
+</section>
+<section id="id" class="hidden">
+<h2>विद्यार्थी ID कार्ड</h2>
+<div class="formarea">
+<label>नाम</label><input id="iname">
+<label>पिता का नाम</label><input id="ifather">
+<label>कक्षा</label><select id="ic"></select>
+<label>रोल नंबर</label><input id="iroll">
+<label>फोटो</label><input type="file" id="photo" accept="image/*">
+<button onclick="makeID()">ID कार्ड बनाएं</button>
+</div><div id="idOut"></div>
+</section>
+<section id="admission" class="hidden">
+<h2>प्रवेश / नामांकन फॉर्म</h2>
+<div class="formarea">
+<label>विद्यार्थी का नाम</label><input id="an">
+<label>पिता का नाम</label><input id="af">
+<label>माता का नाम</label><input id="am">
+<label>जन्म तिथि</label><input id="ad" type="date">
+<label>कक्षा</label><select id="ac"></select>
+<label>मोबाइल नंबर</label><input id="aph">
+<label>पता</label><textarea id="aa"></textarea>
+<button onclick="makeAdmission()">फॉर्म बनाएं</button>
+</div><div id="adOut"></div>
+</section>
+<section id="settings" class="hidden">
+<h2>स्कूल सेटिंग</h2>
+<label>स्कूल का नाम</label><input id="schoolName" value="ज्ञान पब्लिक स्कूल">
+<label>स्कूल का पता</label><input id="schoolAddress" value="घोंघिया (जयगुरुदेव आश्रम)">
+<label>संपर्क नंबर</label><input id="phone" value="7277482447">
+<label>स्कूल का लोगो अपलोड करें</label><input type="file" id="logoFile" accept="image/*">
+<button onclick="saveSettings()">जानकारी सेव करें</button>
+</section>
+<div class="noprint" style="text-align:center;margin:18px">
+<button onclick="window.print()">प्रिंट / PDF डाउनलोड</button>
+</div>
+</main>
+<script>
+const classes=["Nursery","LKG","UKG","Class 1","Class 2","Class 3","Class 4","Class 5","Class 6","Class 7","Class 8"];
+["mc","qc","ic","ac"].forEach(id=>{let s=document.getElementById(id);classes.forEach(c=>s.add(new Option(c,c)))});
+function show(id){document.querySelectorAll("main>section").forEach(s=>s.classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
+function val(id){return document.getElementById(id).value.trim()}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+let logo="";
+function head(){return '<div class="paperhead"><h2>'+safe(val("schoolName")||"ज्ञान पब्लिक स्कूल")+'</h2><b>'+safe(val("schoolAddress"))+'</b><p>संपर्क: '+safe(val("phone"))+'</p>'+(logo?'<img src="'+logo+'" style="width:65px;height:65px;object-fit:contain">':'')+'</div>'}
+function saveSettings(){document.getElementById("schoolTitle").textContent=val("schoolName");let f=document.getElementById("logoFile").files[0];if(f){let r=new FileReader();r.onload=()=>{logo=r.result;document.getElementById("logoShow").src=logo;document.getElementById("logoShow").style.display="inline-block";alert("लोगो और सेटिंग इस पेज पर तैयार हैं।")};r.readAsDataURL(f)}else alert("स्कूल का नाम और पता अपडेट हो गया।")}
+function makeMarks(){let max=Number(val("maximum"))||100,lines=val("subjects").split("\n").filter(Boolean),total=0,possible=lines.length*max;let rows=lines.map(line=>{let p=line.split(","),n=Number(p[1])||0;total+=n;return '<tr><td>'+safe(p[0])+'</td><td>'+max+'</td><td>'+n+'</td></tr>'}).join("");let pct=possible?(total/possible*100).toFixed(2):0;document.getElementById("markOut").innerHTML='<div class="paper">'+head()+'<h2 style="text-align:center">विद्यार्थी अंकपत्र</h2><p>नाम: '+safe(val("mn"))+' | पिता: '+safe(val("mp"))+'</p><p>कक्षा: '+val("mc")+' | रोल: '+safe(val("mr"))+'</p><p>परीक्षा: '+safe(val("me"))+' | सत्र: '+safe(val("ms"))+'</p><table><tr><th>विषय</th><th>पूर्णांक</th><th>प्राप्तांक</th></tr>'+rows+'<tr><th>कुल</th><th>'+possible+'</th><th>'+total+'</th></tr></table><h3>प्रतिशत: '+pct+'%</h3><p style="margin-top:55px">कक्षा अध्यापक हस्ताक्षर __________ प्रधानाचार्य हस्ताक्षर __________</p></div>'}
+function makePaper(){let qs=val("questions").split("\n").filter(Boolean).map((q,i)=>'<p>'+(i+1)+'. '+safe(q)+'</p>').join("");document.getElementById("paperOut").innerHTML='<div class="paper">'+head()+'<h2 style="text-align:center">प्रश्नपत्र</h2><p>कक्षा: '+val("qc")+' | विषय: '+safe(val("qs"))+'</p><p>परीक्षा: '+safe(val("qe"))+' | समय: '+safe(val("qt"))+' | पूर्णांक: '+safe(val("qmax"))+'</p><p>नाम: __________________ रोल नंबर: __________</p>'+qs+'</div>'}
+function makeID(){let f=document.getElementById("photo").files[0];let render=src=>{document.getElementById("idOut").innerHTML='<div class="paper" style="max-width:360px;text-align:center">'+head()+'<h3>STUDENT ID CARD</h3>'+(src?'<img src="'+src+'" style="width:85px;height:95px;object-fit:cover">':'')+'<p>नाम: '+safe(val("iname"))+'</p><p>पिता: '+safe(val("ifather"))+'</p><p>कक्षा: '+val("ic")+'</p><p>रोल नंबर: '+safe(val("iroll"))+'</p></div>'};if(f){let r=new FileReader();r.onload=()=>render(r.result);r.readAsDataURL(f)}else render("")}
+function makeAdmission(){document.getElementById("adOut").innerHTML='<div class="paper">'+head()+'<h2 style="text-align:center">प्रवेश / नामांकन फॉर्म</h2><p>विद्यार्थी: '+safe(val("an"))+'</p><p>पिता: '+safe(val("af"))+' | माता: '+safe(val("am"))+'</p><p>जन्म तिथि: '+safe(val("ad"))+'</p><p>कक्षा: '+val("ac")+'</p><p>मोबाइल: '+safe(val("aph"))+'</p><p>पता: '+safe(val("aa"))+'</p><p style="margin-top:50px">अभिभावक हस्ताक्षर __________</p></div>'}
+</script>
+</body>
+</html>
